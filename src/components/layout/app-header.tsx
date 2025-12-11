@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Archive, Search, Trash2, Settings, Sun, Moon, Sparkles, FolderSync } from 'lucide-react';
+import { Archive, Search, Trash2, Settings, Sun, Moon, Sparkles } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import {
@@ -16,7 +16,6 @@ interface AppHeaderProps {
   searchTerm: string;
   onSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onDelete: () => void;
-  onOrganize: () => void;
   selectedFileCount: number;
 }
 
@@ -24,7 +23,6 @@ export default function AppHeader({
   searchTerm,
   onSearchChange,
   onDelete,
-  onOrganize,
   selectedFileCount,
 }: AppHeaderProps) {
   const { theme, setTheme } = useTheme();
@@ -52,10 +50,6 @@ export default function AppHeader({
             />
           </div>
         </form>
-        <Button variant="outline" onClick={onOrganize}>
-            <FolderSync className="mr-2 h-4 w-4" />
-            Organize with AI
-        </Button>
         <Button
           variant="destructive"
           onClick={onDelete}
