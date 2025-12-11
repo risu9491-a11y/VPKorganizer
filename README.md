@@ -1,5 +1,5 @@
-# Firebase Studio
+# VPK Organizer V1
 
-This is a NextJS starter in Firebase Studio.
+Finds duplicated .vpks 
 
-To get started, take a look at src/app/page.tsx.
+
