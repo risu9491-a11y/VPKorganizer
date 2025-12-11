@@ -1,5 +1,5 @@
 # VPK Organizer V1
 
-Finds duplicated .vpks 
+Finds and lists all your duplicated .vpks 
 
 
