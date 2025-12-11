@@ -7,6 +7,7 @@ import AppHeader from '@/components/layout/app-header';
 import VpkFilesTable from '@/components/vpk/vpk-files-table';
 import FilePreviewPanel from '@/components/vpk/file-preview-panel';
 import BottomAnalyticsPanel from '@/components/layout/bottom-analytics-panel';
+import AiOrganizerDialog from '@/components/vpk/ai-organizer-dialog';
 import { useToast } from "@/hooks/use-toast";
 import {
   AlertDialog,
@@ -33,6 +34,7 @@ export default function VPKAssemblerPage() {
   const [driveFilter, setDriveFilter] = useState<string | null>(null);
   const [duplicateFilter, setDuplicateFilter] = useState<string | null>(null);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isOrganizerOpen, setIsOrganizerOpen] = useState(false);
 
   const { toast } = useToast();
 
@@ -134,6 +136,7 @@ export default function VPKAssemblerPage() {
         searchTerm={searchTerm}
         onSearchChange={(e) => setSearchTerm(e.target.value)}
         onDelete={() => setIsDeleteDialogOpen(true)}
+        onOrganize={() => setIsOrganizerOpen(true)}
         selectedFileCount={selectedIds.size}
       />
       <main className="flex flex-1 overflow-hidden">
@@ -174,6 +177,11 @@ export default function VPKAssemblerPage() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      <AiOrganizerDialog
+        isOpen={isOrganizerOpen}
+        onClose={() => setIsOrganizerOpen(false)}
+        files={files}
+      />
     </div>
   );
 }
