@@ -48,21 +48,26 @@ export default function VPKAssemblerPage() {
         newSet.delete(id);
       } else {
         newSet.add(id);
-        setLastSelectedId(id);
-      }
-      if(newSet.size === 0) {
-        setLastSelectedId(null);
-      } else if (!newSet.has(lastSelectedId || '')) {
-         setLastSelectedId(Array.from(newSet)[newSet.size-1]);
       }
       return newSet;
     });
+
+    // Handle lastSelectedId outside of the functional updater for selectedIds
+    if (!selectedIds.has(id)) {
+        setLastSelectedId(id);
+    } else {
+        // If we unselected the current last item, we might want to clear it or pick another
+        if (lastSelectedId === id) {
+             setLastSelectedId(null);
+        }
+    }
   };
 
   const handleSelectAll = (isChecked: boolean) => {
     if (isChecked) {
-      setSelectedIds(new Set(files.map(f => f.id)));
-      setLastSelectedId(files[files.length-1]?.id || null);
+      const allIds = files.map(f => f.id);
+      setSelectedIds(new Set(allIds));
+      setLastSelectedId(allIds[allIds.length-1] || null);
     } else {
       setSelectedIds(new Set());
       setLastSelectedId(null);

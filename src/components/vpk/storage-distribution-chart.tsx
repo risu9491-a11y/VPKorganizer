@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import type { VpkFile } from '@/types';
 import {
   ChartContainer,
@@ -32,6 +32,12 @@ const formatBytes = (bytes: number) => {
 };
 
 export default function StorageDistributionChart({ files, onDriveFilter }: StorageDistributionChartProps) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const { chartData, chartConfig } = useMemo(() => {
     const driveUsage = new Map<string, number>();
     files.forEach(file => {
@@ -54,6 +60,14 @@ export default function StorageDistributionChart({ files, onDriveFilter }: Stora
 
     return { chartData: data, chartConfig: config };
   }, [files]);
+
+  if (!mounted) {
+    return (
+        <div className="flex h-[200px] w-full items-center justify-center rounded-lg border-2 border-dashed">
+            <p className="text-muted-foreground">Loading analytics...</p>
+        </div>
+    );
+  }
 
   if (chartData.length === 0) {
     return (
